@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "com.alrex.parcool.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"common.EntityMixin",
+		"common.LivingEntityMixin",
+		"common.PlayerMixin",
+		"platform.PlayerAttachmentMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

@@ -1,0 +1,19 @@
+accessWidener v2 named
+
+accessible field net/minecraft/world/entity/Entity onGround Z
+accessible method net/minecraft/world/entity/player/Player canPlayerFitWithinBlocksAndEntitiesWhen (Lnet/minecraft/world/entity/Pose;)Z
+accessible field net/minecraft/world/entity/LivingEntity swimAmount F
+accessible field net/minecraft/world/entity/LivingEntity swimAmountO F
+
+# TODO: verify these two field descriptors locally (run `javap -p` against the mapped class, or
+# check via Loom's genSources) - CFR could confirm the friendly names but not the exact type
+# descriptors of these RenderStateShard constants.
+# accessible field net/minecraft/client/renderer/RenderStateShard NO_TEXTURE Lnet/minecraft/client/renderer/RenderStateShard$EmptyTextureStateShard;
+# accessible field net/minecraft/client/renderer/RenderStateShard CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+# accessible field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+# accessible field net/minecraft/client/renderer/RenderStateShard LIGHTMAP Lnet/minecraft/client/renderer/RenderStateShard$LightmapStateShard;
+# accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_LEASH_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+
+# TODO: the original AT also has `public net.minecraft.world.damagesource.DamageSources *()`
+# (all constructors public) - access widener has no wildcard; add the specific constructor
+# descriptor once you've checked it (`javap -p` on DamageSources).

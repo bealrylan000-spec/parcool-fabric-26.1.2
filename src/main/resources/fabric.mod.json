@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "parcool-fabric",
+	"version": "${version}",
+	"name": "ParCool! (Fabric port)",
+	"description": "Parkour actions and movement animations for Minecraft - community Fabric port.",
+	"authors": [
+		"alrex (original NeoForge mod)"
+	],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/parcool-fabric/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.alrex.parcool.ParCoolFabric"
+		],
+		"client": [
+			"com.alrex.parcool.ParCoolFabricClient"
+		],
+		"preLaunch": [
+			"com.alrex.parcool.platform.MixinExtrasInit"
+		]
+	},
+	"mixins": [
+		"parcool.mixins.json",
+		{
+			"config": "parcool.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"accessWidener": "parcool.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

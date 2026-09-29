@@ -1,0 +1,28 @@
+MACBOOK INSTRUCTIONS
+
+1. Create an EMPTY GitHub repo named: parcool-fabric-26.1.2
+   Do not add a README, license, or .gitignore on GitHub.
+
+2. Open the extracted project folder in Finder.
+
+3. Open Terminal.
+
+4. Type: cd followed by a space
+   Then drag this project folder from Finder into Terminal and press Return.
+
+5. Run:
+   bash publish-to-github.sh
+
+6. Paste the HTTPS URL of your empty GitHub repo when asked.
+
+If Git is missing, run:
+   xcode-select --install
+
+If Git asks for your identity, run:
+   git config --global user.name "Your Name"
+   git config --global user.email "you@example.com"
+
+Then run again:
+   bash publish-to-github.sh
+
+If GitHub asks you to authenticate, complete the browser/credential prompt. GitHub does not accept account passwords for HTTPS Git pushes.
