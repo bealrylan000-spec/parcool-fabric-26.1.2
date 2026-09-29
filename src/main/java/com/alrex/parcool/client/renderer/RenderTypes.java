@@ -1,17 +1,18 @@
 package com.alrex.parcool.client.renderer;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 
-public class RenderTypes {
-    public static final RenderType ZIPLINE_3D;
-    public static final RenderType ZIPLINE_2D;
+/**
+ * Render types used by ParCool's custom client geometry.
+ *
+ * Minecraft 26.1 removed the old RenderStateShard/CompositeState builder API.
+ * The vanilla leash pipeline is a close match for zipline rope geometry: it
+ * consumes position + color + packed light and does not require a texture.
+ */
+public final class RenderTypes {
+    public static final RenderType ZIPLINE_2D = net.minecraft.client.renderer.rendertype.RenderTypes.leash();
+    public static final RenderType ZIPLINE_3D = net.minecraft.client.renderer.rendertype.RenderTypes.leash();
 
-    static {
-        ZIPLINE_2D = RenderType.create((String)"zipline2d", (VertexFormat)DefaultVertexFormat.POSITION_COLOR_LIGHTMAP, (VertexFormat.Mode)VertexFormat.Mode.QUADS, (int)256, (boolean)false, (boolean)false, (RenderType.CompositeState)RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_LEASH_SHADER).setTextureState(RenderStateShard.NO_TEXTURE).setCullState(RenderStateShard.NO_CULL).setLightmapState(RenderStateShard.LIGHTMAP).createCompositeState(false));
-        ZIPLINE_3D = RenderType.create((String)"zipline3d", (VertexFormat)DefaultVertexFormat.POSITION_COLOR_LIGHTMAP, (VertexFormat.Mode)VertexFormat.Mode.QUADS, (int)256, (boolean)false, (boolean)false, (RenderType.CompositeState)RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_LEASH_SHADER).setTextureState(RenderStateShard.NO_TEXTURE).setCullState(RenderStateShard.CULL).setLightmapState(RenderStateShard.LIGHTMAP).createCompositeState(false));
+    private RenderTypes() {
     }
 }
-

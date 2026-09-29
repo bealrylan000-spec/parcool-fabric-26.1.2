@@ -1,7 +1,6 @@
 package com.alrex.parcool.server.command.args;
 
 import com.alrex.parcool.api.unstable.Limitation;
-import com.alrex.parcool.server.limitation.Limitation;
 import com.alrex.parcool.server.limitation.Limitations;
 import com.mojang.brigadier.Message;
 import com.mojang.brigadier.StringReader;
@@ -42,7 +41,7 @@ implements ArgumentType<Limitation.ID> {
 
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
         String remain = builder.getRemaining();
-        for (Limitation.ID id : Limitations.getRegisteredIDs()) {
+        for (com.alrex.parcool.server.limitation.Limitation.ID id : Limitations.getRegisteredIDs()) {
             String suggestion;
             if (id.getGroup().equals("parcool") || !(suggestion = id.getGroup() + ":" + id.getName()).startsWith(remain)) continue;
             builder.suggest(suggestion);

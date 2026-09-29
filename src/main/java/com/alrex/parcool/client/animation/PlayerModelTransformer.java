@@ -5,7 +5,7 @@ import com.alrex.parcool.api.unstable.animation.AnimationPart;
 import com.alrex.parcool.utilities.MathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +21,7 @@ public class PlayerModelTransformer {
     private AnimationOption option = new AnimationOption();
 
     public float getPartialTick() {
-        return Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+        return Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
     }
 
     public float getHeadPitch() {

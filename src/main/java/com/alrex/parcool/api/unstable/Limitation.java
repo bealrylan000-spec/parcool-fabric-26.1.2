@@ -4,7 +4,6 @@ import com.alrex.parcool.ParCool;
 import com.alrex.parcool.common.action.Action;
 import com.alrex.parcool.common.stamina.StaminaType;
 import com.alrex.parcool.config.ParCoolConfig;
-import com.alrex.parcool.server.limitation.Limitation;
 import com.alrex.parcool.server.limitation.Limitations;
 import com.google.gson.stream.JsonWriter;
 import java.io.BufferedOutputStream;
@@ -171,8 +170,8 @@ public abstract class Limitation {
             return this.name;
         }
 
-        Limitation.ID convert() {
-            return new Limitation.ID(this.group, this.name);
+        com.alrex.parcool.server.limitation.Limitation.ID convert() {
+            return new com.alrex.parcool.server.limitation.Limitation.ID(this.group, this.name);
         }
 
         public String toString() {
