@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import com.alrex.parcool.platform.dist.Dist;
 import com.alrex.parcool.platform.dist.OnlyIn;
 import com.alrex.parcool.platform.eventbus.SubscribeEvent;
-import com.alrex.parcool.platform.event.client.ClientTickEvent;
+import com.alrex.parcool.platform.event.tick.ClientTickEvent;
 import com.alrex.parcool.platform.network.PacketDistributor;
 
 @OnlyIn(value=Dist.CLIENT)
@@ -35,7 +35,7 @@ public class EnableOrDisableParCoolHandler {
             }
             parkourability.getActionInfo().setClientSetting(ClientSetting.readFromLocalConfig());
             PacketDistributor.sendToServer((CustomPacketPayload)new ClientInformationPayload(player.getUUID(), false, parkourability.getClientInfo()), (CustomPacketPayload[])new CustomPacketPayload[0]);
-            player.displayClientMessage((Component)Component.translatable((String)(currentStatus ? "parcool.message.enabled" : "parcool.message.disabled")), true);
+            player.sendSystemMessage((Component)Component.translatable((String)(currentStatus ? "parcool.message.enabled" : "parcool.message.disabled")));
             if (currentStatus) {
                 player.playSound((SoundEvent)SoundEvents.PARCOOL_ENABLE.get(), 1.0f, 1.0f);
             } else {

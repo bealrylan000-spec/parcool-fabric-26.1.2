@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
@@ -22,14 +22,14 @@ import org.joml.Vector3f;
 
 public class ZiplineRopeRenderer
 extends EntityRenderer<ZiplineRopeEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.parse((String)"textures/entity/arrow");
+    private static final Identifier TEXTURE_LOCATION = Identifier.parse((String)"textures/entity/arrow");
 
     public ZiplineRopeRenderer(EntityRendererProvider.Context p_i46179_1_) {
         super(p_i46179_1_);
     }
 
     @Nonnull
-    public ResourceLocation getTextureLocation(@Nonnull ZiplineRopeEntity ziplineRopeEntity) {
+    public Identifier getTextureLocation(@Nonnull ZiplineRopeEntity ziplineRopeEntity) {
         return TEXTURE_LOCATION;
     }
 

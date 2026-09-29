@@ -13,7 +13,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.alrex.parcool.platform.eventbus.Event;
@@ -22,7 +22,7 @@ import com.alrex.parcool.platform.network.IPayloadContext;
 
 public record ActionStatePayload(UUID playerID, List<Entry> states) implements CustomPacketPayload
 {
-    public static final CustomPacketPayload.Type<ActionStatePayload> TYPE = new CustomPacketPayload.Type(ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"payload.action_state"));
+    public static final CustomPacketPayload.Type<ActionStatePayload> TYPE = new CustomPacketPayload.Type(Identifier.fromNamespaceAndPath((String)"parcool", (String)"payload.action_state"));
     public static final StreamCodec<ByteBuf, ActionStatePayload> CODEC = StreamCodec.of(ActionStatePayload::encode, ActionStatePayload::decode);
 
     @Nonnull

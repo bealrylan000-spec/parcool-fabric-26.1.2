@@ -23,7 +23,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -39,7 +39,7 @@ import com.alrex.parcool.platform.network.PacketDistributor;
 import org.apache.logging.log4j.Level;
 
 public class ActionProcessor {
-    private static final ResourceLocation STAMINA_DEPLETED_SLOWNESS_MODIFIER_ID = ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"exhausted.speed");
+    private static final Identifier STAMINA_DEPLETED_SLOWNESS_MODIFIER_ID = Identifier.fromNamespaceAndPath((String)"parcool", (String)"exhausted.speed");
     private static final AttributeModifier STAMINA_DEPLETED_SLOWNESS_MODIFIER = new AttributeModifier(STAMINA_DEPLETED_SLOWNESS_MODIFIER_ID, -0.05, AttributeModifier.Operation.ADD_VALUE);
     private final ByteBuffer bufferOfPostState = ByteBuffer.allocate(128);
     private final ByteBuffer bufferOfPreState = ByteBuffer.allocate(128);
@@ -130,12 +130,12 @@ public class ActionProcessor {
             if (trialCount < 5) {
                 parkourability.trySyncLimitation(localPlayer, parkourability);
                 if (ParCoolConfig.Client.Booleans.ShowAutoResynchronizationNotification.get().booleanValue()) {
-                    player.displayClientMessage((Component)Component.translatable((String)"parcool.message.error.limitation.not_synced"), false);
+                    player.sendSystemMessage((Component)Component.translatable((String)"parcool.message.error.limitation.not_synced"));
                 }
                 ParCool.LOGGER.log(Level.WARN, "Detected ParCool Limitation is not synced. Sending synchronization request...");
             } else if (trialCount == 5) {
                 parkourability.incrementSynchronizeTrialCount();
-                player.displayClientMessage((Component)Component.translatable((String)"parcool.message.error.limitation.fail_sync").withStyle(ChatFormatting.DARK_RED), false);
+                player.sendSystemMessage((Component)Component.translatable((String)"parcool.message.error.limitation.fail_sync").withStyle(ChatFormatting.DARK_RED));
                 ParCool.LOGGER.log(Level.ERROR, "Failed to synchronize ParCool Limitation. There may be problems about server connection. Please report to the developer after checking connection");
             }
         }

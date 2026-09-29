@@ -6,12 +6,12 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.alrex.parcool.platform.network.IPayloadContext;
 
 public record StaminaBroadcastPayload(List<StaminaPayload> staminaList) implements CustomPacketPayload
 {
-    public static final CustomPacketPayload.Type<StaminaBroadcastPayload> TYPE = new CustomPacketPayload.Type(ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"payload.stamina.broadcast"));
+    public static final CustomPacketPayload.Type<StaminaBroadcastPayload> TYPE = new CustomPacketPayload.Type(Identifier.fromNamespaceAndPath((String)"parcool", (String)"payload.stamina.broadcast"));
     private static final StreamCodec<ByteBuf, List<StaminaPayload>> STAMINA_CODEC = new ListStreamCodec<ByteBuf, StaminaPayload>(StaminaPayload.CODEC);
     public static final StreamCodec<ByteBuf, StaminaBroadcastPayload> CODEC = StreamCodec.composite(STAMINA_CODEC, StaminaBroadcastPayload::staminaList, StaminaBroadcastPayload::new);
 

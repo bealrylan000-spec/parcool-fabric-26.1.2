@@ -5,7 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class DeferredRegister<T> {
 
     @SuppressWarnings("unchecked")
     public <I extends T> DeferredHolder<T, I> register(String name, Supplier<? extends I> supplier) {
-        Entry<I> entry = new Entry<>(ResourceLocation.fromNamespaceAndPath(namespace, name), supplier);
+        Entry<I> entry = new Entry<>(Identifier.fromNamespaceAndPath(namespace, name), supplier);
         entries.add(entry);
         return (DeferredHolder<T, I>) Proxy.newProxyInstance(
                 DeferredHolder.class.getClassLoader(),
@@ -95,12 +95,12 @@ public class DeferredRegister<T> {
     }
 
     private final class Entry<I extends T> {
-        final ResourceLocation id;
+        final Identifier id;
         final Supplier<? extends I> supplier;
         Holder.Reference<T> holder;
         I value;
 
-        Entry(ResourceLocation id, Supplier<? extends I> supplier) {
+        Entry(Identifier id, Supplier<? extends I> supplier) {
             this.id = id;
             this.supplier = supplier;
         }

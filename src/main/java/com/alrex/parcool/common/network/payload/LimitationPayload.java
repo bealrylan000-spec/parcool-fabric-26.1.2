@@ -8,13 +8,13 @@ import javax.annotation.Nonnull;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import com.alrex.parcool.platform.network.IPayloadContext;
 
 public record LimitationPayload(ServerLimitation limitation) implements CustomPacketPayload
 {
-    public static final CustomPacketPayload.Type<LimitationPayload> TYPE = new CustomPacketPayload.Type(ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"payload.limitation"));
+    public static final CustomPacketPayload.Type<LimitationPayload> TYPE = new CustomPacketPayload.Type(Identifier.fromNamespaceAndPath((String)"parcool", (String)"payload.limitation"));
     public static final StreamCodec<ByteBuf, LimitationPayload> CODEC = StreamCodec.composite(ServerLimitation.STREAM_CODEC, LimitationPayload::limitation, LimitationPayload::new);
 
     @Nonnull

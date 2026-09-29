@@ -16,9 +16,15 @@ import java.util.*;
  */
 public final class ModConfigSpec {
     private final List<ConfigValue<?>> values;
-    private ModConfigSpec(List<ConfigValue<?>> values) { this.values = values; }
+    private Path filePath;
+
+    private ModConfigSpec(List<ConfigValue<?>> values) {
+        this.values = values;
+        for (ConfigValue<?> value : values) value.owner = this;
+    }
 
     public void load(Path file) {
+        this.filePath = file;
         Properties props = new Properties();
         if (Files.exists(file)) {
             try (Reader r = Files.newBufferedReader(file)) {
@@ -32,6 +38,7 @@ public final class ModConfigSpec {
     }
 
     public void save(Path file) {
+        this.filePath = file;
         try {
             Files.createDirectories(file.getParent());
             try (BufferedWriter w = Files.newBufferedWriter(file)) {
@@ -48,8 +55,9 @@ public final class ModConfigSpec {
         }
     }
 
-    public static final class ConfigValue<T> {
+    public static class ConfigValue<T> {
         final String path;
+        ModConfigSpec owner;
         String comment;
         String translation;
         T value;
@@ -82,6 +90,9 @@ public final class ModConfigSpec {
 
         public T get() { return value; }
         public void set(T v) { this.value = v; }
+        public void save() {
+            if (owner != null && owner.filePath != null) owner.save(owner.filePath);
+        }
     }
 
     public static final class BooleanValue extends ConfigValue<Boolean> {

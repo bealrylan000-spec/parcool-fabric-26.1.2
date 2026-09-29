@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import com.alrex.parcool.platform.dist.Dist;
 import com.alrex.parcool.platform.dist.OnlyIn;
 import com.alrex.parcool.platform.eventbus.SubscribeEvent;
-import com.alrex.parcool.platform.event.client.ClientTickEvent;
+import com.alrex.parcool.platform.event.tick.ClientTickEvent;
 
 @OnlyIn(value=Dist.CLIENT)
 public class OpenSettingsParCoolHandler {

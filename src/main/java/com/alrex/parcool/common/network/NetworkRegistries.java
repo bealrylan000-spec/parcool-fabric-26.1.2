@@ -58,8 +58,8 @@ public final class NetworkRegistries {
             net.minecraft.network.codec.StreamCodec<? super io.netty.buffer.ByteBuf, T> codec,
             java.util.function.BiConsumer<T, IPayloadContext> onClient,
             java.util.function.BiConsumer<T, IPayloadContext> onServer) {
-        PayloadTypeRegistry.playC2S().register(type, codec);
-        PayloadTypeRegistry.playS2C().register(type, codec);
+        PayloadTypeRegistry.serverboundPlay().register(type, codec);
+        PayloadTypeRegistry.clientboundPlay().register(type, codec);
         ServerPlayNetworking.registerGlobalReceiver(type, (payload, ctx) -> onServer.accept(payload, new ServerCtx(ctx)));
         ClientPlayNetworking.registerGlobalReceiver(type, (payload, ctx) -> onClient.accept(payload, new ClientCtx(ctx)));
     }
@@ -68,7 +68,7 @@ public final class NetworkRegistries {
             net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<T> type,
             net.minecraft.network.codec.StreamCodec<? super io.netty.buffer.ByteBuf, T> codec,
             java.util.function.BiConsumer<T, IPayloadContext> onClient) {
-        PayloadTypeRegistry.playS2C().register(type, codec);
+        PayloadTypeRegistry.clientboundPlay().register(type, codec);
         ClientPlayNetworking.registerGlobalReceiver(type, (payload, ctx) -> onClient.accept(payload, new ClientCtx(ctx)));
     }
 }

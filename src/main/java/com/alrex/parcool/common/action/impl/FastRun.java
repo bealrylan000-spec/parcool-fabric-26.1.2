@@ -16,7 +16,7 @@ import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.common.info.ActionInfo;
 import com.alrex.parcool.config.ParCoolConfig;
 import java.nio.ByteBuffer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,7 +26,7 @@ import com.alrex.parcool.platform.dist.OnlyIn;
 
 public class FastRun
 extends Action {
-    private static final ResourceLocation FAST_RUNNING_MODIFIER = ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"modifier.speed.fastrun");
+    private static final Identifier FAST_RUNNING_MODIFIER = Identifier.fromNamespaceAndPath((String)"parcool", (String)"modifier.speed.fastrun");
     private double speedModifier = 0.0;
     private boolean toggleStatus = false;
     private int lastDashTick = 0;

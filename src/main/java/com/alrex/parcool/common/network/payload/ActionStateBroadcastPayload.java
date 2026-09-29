@@ -6,14 +6,14 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.alrex.parcool.platform.network.IPayloadContext;
 
 public record ActionStateBroadcastPayload(List<ActionStatePayload> payloads) implements CustomPacketPayload
 {
-    public static final CustomPacketPayload.Type<ActionStateBroadcastPayload> TYPE = new CustomPacketPayload.Type(ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"payload.action_state.broadcast"));
+    public static final CustomPacketPayload.Type<ActionStateBroadcastPayload> TYPE = new CustomPacketPayload.Type(Identifier.fromNamespaceAndPath((String)"parcool", (String)"payload.action_state.broadcast"));
     public static final StreamCodec<ByteBuf, ActionStateBroadcastPayload> CODEC = StreamCodec.composite(new ListStreamCodec<ByteBuf, ActionStatePayload>(ActionStatePayload.CODEC), ActionStateBroadcastPayload::payloads, ActionStateBroadcastPayload::new);
 
     public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {

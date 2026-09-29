@@ -24,6 +24,9 @@ dependencies {
 	// implementation + include (for jar-in-jar) is enough.
 	implementation "io.github.llamalad7:mixinextras-fabric:0.5.0"
 	include "io.github.llamalad7:mixinextras-fabric:0.5.0"
+
+	// Source annotations used throughout the original mod. Compile-time only; not bundled.
+	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
 
 processResources {

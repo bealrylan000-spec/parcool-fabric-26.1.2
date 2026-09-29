@@ -10,13 +10,13 @@ import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.common.attachment.common.ReadonlyStamina;
 import com.alrex.parcool.config.ParCoolConfig;
 import com.alrex.parcool.utilities.MathUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
-import com.alrex.parcool.platform.event.client.ClientTickEvent;
+import com.alrex.parcool.platform.event.tick.ClientTickEvent;
 
 public class LightStaminaHUD {
     private long lastStaminaChangedTick = 0L;
@@ -73,7 +73,7 @@ public class LightStaminaHUD {
         this.oldValue = newValue;
     }
 
-    public void render(GuiGraphics graphics, Parkourability parkourability, ReadonlyStamina stamina, float partialTick) {
+    public void render(GuiGraphicsExtractor graphics, Parkourability parkourability, ReadonlyStamina stamina, float partialTick) {
         long gameTime;
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) {
@@ -93,12 +93,10 @@ public class LightStaminaHUD {
         }
         staminaScale *= 10.0f;
         float statusScale = this.showStatus ? MathUtil.lerp(this.oldStatusValue, this.statusValue, partialTick) * 10.0f : 0.0f;
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
-        RenderSystem.setShaderTexture((int)0, (ResourceLocation)StaminaHUD.STAMINA);
         int width = graphics.guiWidth();
         int height = graphics.guiHeight();
         int baseX = width / 2 + 91 + ParCoolConfig.Client.Integers.HorizontalOffsetOfLightStaminaHUD.get();
-        int baseY = height - Minecraft.getInstance().gui.rightHeight + ParCoolConfig.Client.Integers.VerticalOffsetOfLightStaminaHUD.get();
+        int baseY = height - 49 + ParCoolConfig.Client.Integers.VerticalOffsetOfLightStaminaHUD.get();
         for (int i = 0; i < 10; ++i) {
             int x = baseX - i * 8 - 9;
             int offsetY = 0;
@@ -119,9 +117,8 @@ public class LightStaminaHUD {
             } else if ((float)(i + 1) > staminaScale && staminaScale > (float)i && this.changingSign == -1) {
                 offsetY = this.randomOffset;
             }
-            graphics.blit(StaminaHUD.STAMINA, x, baseY + offsetY, (float)textureX, 119.0f, 9, 9, 128, 128);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, StaminaHUD.STAMINA, x, baseY + offsetY, textureX, 119, 9, 9, 128, 128);
         }
-        Minecraft.getInstance().gui.rightHeight += 10;
     }
 }
 

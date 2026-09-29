@@ -4,7 +4,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
@@ -23,7 +23,7 @@ public final class NeoForgeModCompat {
 
     public static final Holder<Attribute> SWIM_SPEED = Registry.registerForHolder(
             BuiltInRegistries.ATTRIBUTE,
-            ResourceLocation.withDefaultNamespace("generic.swim_speed"),
+            Identifier.withDefaultNamespace("generic.swim_speed"),
             new RangedAttribute("attribute.name.generic.swim_speed", 1.0, 0.0, 1024.0).setSyncable(true)
     );
 }

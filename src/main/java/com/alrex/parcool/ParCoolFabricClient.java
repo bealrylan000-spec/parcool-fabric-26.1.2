@@ -9,7 +9,7 @@ import com.alrex.parcool.common.item.Items;
 import com.alrex.parcool.extern.AdditionalMods;
 import com.alrex.parcool.platform.dist.Dist;
 import com.alrex.parcool.platform.dist.FMLEnvironment;
-import com.alrex.parcool.platform.event.client.ClientTickEvent;
+import com.alrex.parcool.platform.event.tick.ClientTickEvent;
 import com.alrex.parcool.platform.event.client.MovementInputUpdateEvent;
 import com.alrex.parcool.platform.event.client.RegisterGuiLayersEvent;
 import com.alrex.parcool.platform.event.client.RegisterKeyMappingsEvent;
@@ -18,8 +18,6 @@ import com.alrex.parcool.platform.eventbus.IEventBus;
 import com.alrex.parcool.platform.eventbus.NeoForge;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.HudElementRegistry;
 
 /** Client-only entrypoint (fabric.mod.json "client" entrypoint key). */
 public class ParCoolFabricClient implements ClientModInitializer {
@@ -34,8 +32,8 @@ public class ParCoolFabricClient implements ClientModInitializer {
         bus.addListener(RegisterKeyMappingsEvent.class, KeyBindings::register);
         bus.post(new RegisterKeyMappingsEvent());
 
-        HudLayerRegistrationCallback.EVENT.register(drawer ->
-                bus.post(new RegisterGuiLayersEvent(HudElementRegistry.class.cast(drawer))));
+        // Fabric 26.1+ uses the static HudElementRegistry API.
+        bus.post(new RegisterGuiLayersEvent());
 
         ClientTickEvents.END_CLIENT_TICK.register(mc -> {
             bus.post(new ClientTickEvent.Post());

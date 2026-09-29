@@ -14,21 +14,21 @@ import com.alrex.parcool.config.ParCoolConfig;
 import javax.annotation.Nonnull;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import com.alrex.parcool.platform.dist.Dist;
 import com.alrex.parcool.platform.dist.OnlyIn;
 import com.alrex.parcool.platform.eventbus.Event;
-import com.alrex.parcool.platform.event.client.ClientTickEvent;
+import com.alrex.parcool.platform.event.tick.ClientTickEvent;
 import com.alrex.parcool.platform.eventbus.NeoForge;
 
 @OnlyIn(value=Dist.CLIENT)
 public class StaminaHUDController
-implements LayeredDraw.Layer {
-    public static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath((String)"parcool", (String)"hud.stamina");
+implements HudElement {
+    public static Identifier ID = Identifier.fromNamespaceAndPath((String)"parcool", (String)"hud.stamina");
     LightStaminaHUD lightStaminaHUD = new LightStaminaHUD();
     StaminaHUD staminaHUD = new StaminaHUD();
 
@@ -41,7 +41,7 @@ implements LayeredDraw.Layer {
         this.staminaHUD.onTick(event, player);
     }
 
-    public void render(@Nonnull GuiGraphics graphics, @Nonnull DeltaTracker partialTick) {
+    public void extractRenderState(@Nonnull GuiGraphicsExtractor graphics, @Nonnull DeltaTracker partialTick) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) {
             return;
